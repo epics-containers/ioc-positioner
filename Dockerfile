@@ -26,12 +26,26 @@ COPY ibek-support/_global/ _global
 COPY ibek-support/pvxs/ pvxs/
 RUN pvxs/install.sh 1.3.1
 
+COPY ibek-support/asyn/ asyn/
+RUN asyn/install.sh R4-44-2
+
+COPY ibek-support/autosave/ autosave/
+RUN autosave/install.sh R5-11
+
 COPY ibek-support/iocStats/ iocStats
 RUN iocStats/install.sh 3.2.0
 
-################################################################################
-#  TODO - Add further support module installations here
-################################################################################
+COPY ibek-support/busy/ busy/
+RUN busy/install.sh R1-7-4
+
+COPY ibek-support/calc/ calc/
+RUN calc/install.sh R3-7-5
+
+COPY ibek-support/positioner/ positioner/
+RUN positioner/install.sh master
+
+
+
 
 # get the ioc source and build it
 COPY ioc ${SOURCE_FOLDER}/ioc
