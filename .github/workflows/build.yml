@@ -30,6 +30,13 @@ jobs:
     env:
       TAG: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}${{ matrix.extension }}
     steps:
+
+      - name: Lowercase Owner
+        run: |
+          echo "TAG=${TAG_uc,,}" >>${GITHUB_ENV}
+        env:
+          TAG_uc: ${{ env.TAG }}
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
