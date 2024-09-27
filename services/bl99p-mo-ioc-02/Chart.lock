@@ -1,0 +1,6 @@
+dependencies:
+- name: ioc-instance
+  repository: oci://ghcr.io/epics-containers
+  version: 4.0.0
+digest: sha256:62b67b72c268d269cb4863081bdb0f261ff4af76d3316a9a85b605b142db24ff
+generated: "2024-09-27T13:48:08.655276939+01:00"
