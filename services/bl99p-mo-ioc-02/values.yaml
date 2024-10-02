@@ -17,5 +17,5 @@ ioc-instance:
   #    can experiment with changes until the issue
   #    is fixed.
   #
-  startCommand: sleep
-  startArgs: infinity
+  # startCommand: sleep
+  # startArgs: infinity
