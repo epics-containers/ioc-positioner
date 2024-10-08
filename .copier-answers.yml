@@ -2,7 +2,8 @@
 _commit: 4.0.1
 _src_path: gh:epics-containers/ioc-template
 description: The Generic IOC for the positioner controller
-git_platform: gitlab.diamond.ac.uk
+git_platform: github.com
+github_org: epics-containers
 name: ioc-positioner
-repo_uri: git@gitlab.diamond.ac.uk:controls/containers/iocs/ioc-positioner.git
+repo_uri: git@github.com:epics-containers/ioc-positioner.git
 rtems: false
