@@ -41,14 +41,7 @@ RUN busy/install.sh R1-7-4
 COPY ibek-support/calc/ calc/
 RUN calc/install.sh R3-7-5
 
-
-
-
-##### Internal modules ################################################
-WORKDIR ${SOURCE_FOLDER}/ibek-support-dls
-COPY ibek-support/_global/ _global
-
-COPY ibek-support-dls/positioner/ positioner/
+COPY ibek-support/positioner/ positioner/
 RUN positioner/install.sh master
 
 
