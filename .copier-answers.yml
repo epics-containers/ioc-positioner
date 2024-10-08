@@ -1,9 +1,8 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: 4.0.0
+_commit: 4.0.1
 _src_path: gh:epics-containers/ioc-template
 description: The Generic IOC for the positioner controller
-git_platform: github.com
-github_org: MaxHerbs
+git_platform: gitlab.diamond.ac.uk
 name: ioc-positioner
-repo_uri: git@github.com:MaxHerbs/ioc-positioner.git
+repo_uri: git@gitlab.diamond.ac.uk:controls/containers/iocs/ioc-positioner.git
 rtems: false
