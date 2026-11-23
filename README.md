@@ -1,4 +1,4 @@
-# Generic IOC Template Repository ioc-positioner
+# Generic IOC ioc-positioner
 
 ## Description
 The Generic IOC for the positioner controller
@@ -14,21 +14,37 @@ To update to the latest version of the template:
 
 pip install copier
 cd ioc-positioner
-copier update -a --trust .
+copier update --trust .
 ```
 
 ## Developer Container
 
 This repository includes a developer container configuration for Visual Studio Code. This allows you to run the Generic IOC locally and debug it. See https://epics-containers.github.io/main/tutorials/dev_container.html.
 
-### IMPORTANT: First Time Preparation
+The developer container runs the `ioc-positioner-developer:latest` image that CI publishes with each full release, named in both `.devcontainer/devcontainer.json` (what the container runs) and `.devcontainer/initializeCommand` (what is pulled or built): change one and the other must follow. Each time the container starts:
 
-The devcontainer uses a docker network that it can share with a ca-gateway in order that your PVs are accessible from your host machine. We arrange to create this network once and as long as you don't delete it or reset docker it will be available for all your devcontainers going forward.
+- `.devcontainer/initializeCommand` pulls that image on the host. If the pull fails it uses the local image of that name, and if there is none it builds one with `./build`.
+- `ibek dev sync` runs in the container. It compares the project folder with the source the image was built from, brings the support module definitions in line and reports anything that needs a rebuild.
 
-To create the network run the following commands:
+A pre-release tag does not move `latest`. A repository that has made no full release from this template has no such image, so its first start builds one locally. Changes merged to main after the last release are not in the image: `ibek dev sync` reports the difference.
+
+An existing container keeps the image it was created from: use "Dev Containers: Rebuild Container" to move it to the image that was pulled. While the container was created from a different image than the one on the machine, usually an older one, the `ibek dev` commands print a WARNING that says so.
+
+A container starts without the IOC build products when it is created, by the first start or by "Dev Containers: Rebuild Container". `.devcontainer/postCreateCommand` runs `make clean uninstall` in `/epics/ioc`, which links to `ioc/` in the project folder, because its build products were built against the support modules of another container. Run `make` in `/epics/ioc` to build the IOC: `ibek dev status` says when that is needed. Source files and the `ioc/config` link that `ibek dev instance` makes are kept, and reopening an existing container keeps its build products.
+
+To run the image built from your own tree instead, for example after changing the `Dockerfile` or on a branch that is far from main, create the marker file and use "Dev Containers: Rebuild Container":
 
 ```bash
-cd ioc-adsimdetector
-source ./compose/environment.sh
+touch .devcontainer/local-build
 ```
 
+While that file exists each start builds the image with `./build`, which is quick when the layers are cached, instead of pulling it. The build leaves the project folder as it is: `.dockerignore` keeps the IOC build products and the `ioc/config` link out of the image. Delete the file to go back to the published image. Git ignores the file.
+
+## Channel Access
+
+The vscode developer container auto forwards the channel access ports on the loopback interface. If you have channel access clients running on the host machine, you can connect to the IOC by setting the `EPICS_CA_NAME_SERVERS` environment variable as follows:
+
+```bash
+export EPICS_CA_NAME_SERVERS=127.0.0.1:5064
+caget IOCNAME:PVNAME
+```
