@@ -1,7 +1,10 @@
 # yaml-language-server: $schema=https://github.com/MaxHerbs/ioc-positioner/releases/download/2024.9.2/ibek.ioc.schema.json
 # Copied from https://gitlab.diamond.ac.uk/controls/containers/beamline/p99-services
 # services/bl99p-mo-ioc-02/config/ioc.yaml at commit 21e2c8d3785eedec76ec5e3a994d01ab1a71e2fa
-# Unchanged: it has no device addresses or passwords.
+# It has no device addresses or passwords.
+# Changed to fit the current image (the source was written for 2024.10.1):
+# - P removed from positioner.motorpositioner, which takes it from its MP
+#   multipositioner (ibek-support ef7aee2)
 # tests/run-tests.sh runs it with start.sh --test, which generates the
 # runtime assets but does not launch the IOC.
 
@@ -61,7 +64,6 @@ entities:
     EGU: mm
     MP: SAM2.MP
     PREC: 1
-    P: BL99P-MO-STAGE-02
     Q: :P
     VALA: 0
     VALB: 0.1
