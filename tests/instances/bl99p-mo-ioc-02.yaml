@@ -4,7 +4,7 @@
 # It has no device addresses or passwords.
 # Changed to fit the current image (the source was written for 2024.10.1):
 # - P removed from positioner.motorpositioner, which takes it from its MP
-#   multipositioner (ibek-support ef7aee2)
+#   multipositioner (ibek-support 842ec0f)
 # tests/run-tests.sh runs it with start.sh --test, which generates the
 # runtime assets but does not launch the IOC.
 
